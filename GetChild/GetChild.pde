@@ -16,14 +16,14 @@ PShape michigan;
 PShape ohio;
 PShape annarbor;
 
-int x = 0;
-int y = 0;
-float sc = 1;
+int x = -587;
+int y = -121;
+float sc = 2.025;
 boolean moving = false;
 boolean shift;
 
 void setup() {
-  size(960, 540, P2D); 
+  size(640, 480, P2D); 
   usa = loadShape("usa-wikipedia-mod3.svg");
   annarbor = usa.getChild("annarbor");
 }
@@ -35,7 +35,6 @@ void draw() {
 
   scale(sc);
   usa.disableStyle();
-  strokeWeight(10);
   noStroke();
   fill(185);
   shape(usa, x, y);
@@ -74,6 +73,10 @@ void keyPressed() {
     annarbor.scale(1.05);
   }
   if (key == '-') usa.scale(0.95);
+  
+  if (key == 'p') {
+    println("sc: " + sc + "\tx: " + x + "\ty: " + y);
+  }
 }
 
 
