@@ -16,6 +16,11 @@ class Country {
     }
   }
   
+  void update() {
+    for (int i = 0; i < state.length; i++) {
+      state[i].update();
+    }
+  }
   
 
   void display() {
@@ -30,7 +35,14 @@ class Country {
   }
 
   void run() {
+    update();
     display();
   }
+  
+  
+ void begin(int i) {
+   state[i].begin();
+ }
+ 
 }
 

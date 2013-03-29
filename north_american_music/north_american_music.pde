@@ -12,7 +12,6 @@
  */
 
 Country nam;
-Epicenter epi;
 
 int x = -587;
 int y = -121;
@@ -26,14 +25,11 @@ void setup() {
   size(640, 480);
   smooth();
   nam = new Country(x, y);
-  epi = new Epicenter(random(100, 300), random(100, 300), color(0, 120, 255));
 }
 
 void draw() {
   background(255);
   nam.run();
-  epi.update();
-  epi.display();
   fill(50);
   text(frameRate, 10, 20);
 }
@@ -52,7 +48,9 @@ void keyPressed() {
       shift = true;
     }
   }
-  if (key == ' ') epi.begin();
+  if (key == '1') nam.begin(0);
+  if (key == '2') nam.begin(1);
+  if (key == '3') nam.begin(2);
 }
 
 
