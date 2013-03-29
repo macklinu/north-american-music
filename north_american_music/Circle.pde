@@ -20,7 +20,7 @@ class Circle {
     this.x = x;
     this.y = y;
     this.c = c;
-    numWaves = 40;
+    // numWaves = 40;
     
     begin = false;
   }

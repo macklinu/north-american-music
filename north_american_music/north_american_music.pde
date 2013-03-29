@@ -34,6 +34,10 @@ void draw() {
   text(frameRate, 10, 20);
 }
 
+void mousePressed() {
+  println(mouseX + ", " + mouseY);
+}
+
 void mouseDragged() {
   moving = true;
 }

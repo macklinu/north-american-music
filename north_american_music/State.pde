@@ -4,12 +4,12 @@ class State {
   String id;
   int x, y;
 
-  State(String id, int x, int y) {
+  State(String id, int x, int y, int epiX, int epiY) {
     this.id = id;
     this.x = x;
     this.y = y;
 
-    epi = new Epicenter(random(100, 300), random(100, 300), color(random(255), random(255), 30));
+    epi = new Epicenter(epiX/sc, epiY/sc, color(random(255), random(255), 30));
   }
 
   void disable() {
