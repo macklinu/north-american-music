@@ -11,10 +11,9 @@ class Country {
   State[] state = new State[stateNames.length];
   PShape country;
   int x, y;
-  float[] travelX = new float[stateNames.length];
-  float[] travelY = new float[stateNames.length];
-  color[] c = {color(20, 255, 255), color(120, 255, 255), color(220, 255, 255)};
-  float incX, incY;
+  color[] c = {
+    color(20, 255, 255), color(120, 255, 255), color(220, 255, 255)
+  };
 
   boolean start = false;
   boolean moving = false;
@@ -27,12 +26,6 @@ class Country {
       state[i] = new State(stateNames[i], x, y, xLoc[i]/sc, yLoc[i]/sc, 0, c[i]);
       state[i].shape = country.getChild(stateNames[i]);
     }
-
-    travelX[0] = state[0].epiX;
-    travelY[0] = state[0].epiY;
-    println(dist(travelX[0], state[1].epiX, travelY[0], state[1].epiY));
-    incX = ((travelX[0] - state[1].epiX) / 500);
-    incY = ((travelY[0] - state[1].epiY) / 500);
   }
 
   void update() {
@@ -41,10 +34,7 @@ class Country {
     }
     if (start) {
       if (moving) {
-      travelX[0] -= incX;
-      travelY[0] -= incY;
       }
-      if (dist(travelX[0], travelY[0], state[1].epiX, state[1].epiY) < 0.1) moving = false;
     }
   }
 
@@ -63,14 +53,12 @@ class Country {
     }
     /*
     line(state[0].epiX, state[0].epiY, state[1].epiX, state[1].epiY);
-    line(state[1].epiX, state[1].epiY, state[2].epiX, state[2].epiY);
-    line(state[2].epiX, state[2].epiY, state[0].epiX, state[0].epiY);
-    */
+     line(state[1].epiX, state[1].epiY, state[2].epiX, state[2].epiY);
+     line(state[2].epiX, state[2].epiY, state[0].epiX, state[0].epiY);
+     */
     if (start) {
-      noStroke();
-      fill(127, 255, 100, 100);
-      ellipse(travelX[0], travelY[0], 20, 20);
     }
+
 
     popMatrix();
   }

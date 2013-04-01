@@ -27,6 +27,7 @@ int MI_to_NY = 2408736;
 int IL_to_NY = 3623298;
 
 int size = 2;
+PFont font;
 
 void setup() {
   size(640, 480, P2D);
@@ -37,6 +38,8 @@ void setup() {
   Ani.setDefaultEasing(Ani.LINEAR);
 
   nam = new Country(x, y);
+  font = loadFont("Inconsolata.vlw");
+  textFont(font);
 }
 
 void draw() {
@@ -74,11 +77,23 @@ void keyPressed() {
     nam.moving = !nam.moving;
     println(nam.start);
   }
+  if (key == 's') save("screenshots/" + timestamp() + ".png");
 }
 
 
 
 void keyReleased() {
   shift = false;
+}
+
+String timestamp() {
+  String currentTime = str(year()) 
+    + nf(month(), 2)
+      + nf(day(), 2)
+        + "_"
+          + nf(hour(), 2)
+            + nf(minute(), 2)
+              + nf(second(), 2);
+  return currentTime;
 }
 
