@@ -11,6 +11,9 @@
  * two new PShape objects by extracting the data from two states.
  */
 
+import de.looksgood.ani.*;
+import de.looksgood.ani.easing.*;
+
 Country nam;
 
 int x = -587;
@@ -22,13 +25,23 @@ boolean shift;
 int size = 2;
 
 void setup() {
-  size(640, 480);
+  size(640, 480, P2D);
   smooth();
+  colorMode(HSB);
+  
+  Ani.init(this);
+  Ani.setDefaultEasing(Ani.LINEAR);
+  
   nam = new Country(x, y);
 }
 
 void draw() {
   background(255);
+  /*
+  noStroke();
+   fill(255, 50);
+   rect(0, 0, width, height);
+   */
   nam.run();
   fill(50);
   text(frameRate, 10, 20);
@@ -52,9 +65,14 @@ void keyPressed() {
       shift = true;
     }
   }
-  if (key == '1') nam.begin(0);
-  if (key == '2') nam.begin(1);
-  if (key == '3') nam.begin(2);
+  if (key == '1') nam.begin(0, 1);
+  if (key == '2') nam.begin(1, 2);
+  if (key == '3') nam.begin(2, 0);
+  if (key == 'a') { 
+    nam.start = !nam.start;
+    nam.moving = !nam.moving;
+    println(nam.start);
+  }
 }
 
 

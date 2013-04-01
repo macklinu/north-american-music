@@ -22,7 +22,7 @@ class Timer {
 
   boolean atInterval() { 
     // Check how much time has passed
-    int passedTime = millis()- savedTime;
+    int passedTime = millis() - savedTime;
     int check = passedTime / totalTime;
     if (check > interval) {
       interval++;
