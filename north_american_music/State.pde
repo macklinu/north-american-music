@@ -1,5 +1,5 @@
 class State {
-  State dest;
+  State first, second;
   Epicenter epi;
   PShape shape, star;
   String id;
@@ -12,6 +12,7 @@ class State {
   boolean recording, listening, sending, begin, setAni;
 
   Circle sound;
+  int firstTime, secondTime;
 
   State(String id, int x, int y, float epiX, float epiY, float diameter, color c) {
     this.id = id;
@@ -51,7 +52,8 @@ class State {
     // epi.update();
     if (begin) {
       if (setAni) { 
-        sound.animate(dest.epiX, dest.epiY);
+        // sound.animate(epiX, epiY, first.epiX, first.epiY, second.epiX, second.epiY, firstTime);
+        sound.animate(this, first, second, firstTime, secondTime);
         setAni = false;
       }
     }
@@ -71,9 +73,12 @@ class State {
     // epi.display();
   }
 
-  void begin(State dest) {
+  void begin(State first, State second, int firstTime, int secondTime) {
     // epi.begin();
-    this.dest = dest;
+    this.first = first;
+    this.second = second;
+    this.firstTime = firstTime;
+    this.secondTime = secondTime;
     begin = !begin;
     setAni = true;
   }

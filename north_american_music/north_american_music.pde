@@ -22,29 +22,30 @@ float sc = 2.025;
 boolean moving = false;
 boolean shift;
 
+int MI_to_IL = 1287378;
+int MI_to_NY = 2408736;
+int IL_to_NY = 3623298;
+
 int size = 2;
 
 void setup() {
   size(640, 480, P2D);
   smooth();
   colorMode(HSB);
-  
+
   Ani.init(this);
   Ani.setDefaultEasing(Ani.LINEAR);
-  
+
   nam = new Country(x, y);
 }
 
 void draw() {
   background(255);
-  /*
-  noStroke();
-   fill(255, 50);
-   rect(0, 0, width, height);
-   */
   nam.run();
+  /*
   fill(50);
-  text(frameRate, 10, 20);
+   text(frameRate, 10, 20);
+   */
 }
 
 void mousePressed() {
@@ -65,9 +66,9 @@ void keyPressed() {
       shift = true;
     }
   }
-  if (key == '1') nam.begin(0, 1);
-  if (key == '2') nam.begin(1, 2);
-  if (key == '3') nam.begin(2, 0);
+  if (key == '1') nam.begin(0, 1, 2, MI_to_IL, IL_to_NY);
+  if (key == '2') nam.begin(1, 0, 2, MI_to_IL, MI_to_NY);
+  if (key == '3') nam.begin(2, 1, 0, MI_to_IL, IL_to_NY);
   if (key == 'a') { 
     nam.start = !nam.start;
     nam.moving = !nam.moving;

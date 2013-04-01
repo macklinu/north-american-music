@@ -24,7 +24,7 @@ class Country {
     this.y = y;
     country = loadShape("usa-wikipedia-mod3.svg");
     for (int i = 0; i < state.length; i++) {
-      state[i] = new State(stateNames[i], x, y, xLoc[i]/sc, yLoc[i]/sc, 20, c[i]);
+      state[i] = new State(stateNames[i], x, y, xLoc[i]/sc, yLoc[i]/sc, 0, c[i]);
       state[i].shape = country.getChild(stateNames[i]);
     }
 
@@ -80,8 +80,8 @@ class Country {
     display();
   }
 
-  void begin(int i, int dest) {
-    state[i].begin(state[dest]);
+  void begin(int i, int first, int second, int firstTime, int secondTime) {
+    state[i].begin(state[first], state[second], firstTime, secondTime);
   }
 
   void keyPressed() {

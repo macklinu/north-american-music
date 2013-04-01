@@ -4,6 +4,10 @@ class Circle {
   float size;
   int numWaves;
   boolean begin;
+  float startX, startY, firstX, firstY, secondX, secondY;
+  State start, first, second;
+  Ani firstAni, secondAni;
+  int firstTime, secondTime;
 
   Circle(float x, float y, float size, color c) {
     this.x = x;
@@ -30,15 +34,33 @@ class Circle {
     this.begin = begin;
   }
 
-  void animate(float destX, float destY) {
-    Ani.to(this, 1.5, "size", destX);
-    // Ani.to(this, 1.5, "y", destY);
+  void animate(State start, State first, State second, int firstTime, int secondTime) {
+    this.start = start;
+    this.first = first;
+    this.second = second;
+    this.firstTime = firstTime;
+    this.secondTime = secondTime;
+
+    firstAni = new Ani(this, firstTime / 100000, "size", dist(start.epiX, start.epiY, first.epiX, first.epiY), Ani.LINEAR, "onEnd:nextAni");
+    firstAni.start();
+  }
+  
+  private void nextAni() {
+    println(start.id + " made it to: " + first.id);
+    size = dist(start.epiX, start.epiY, first.epiX, first.epiY);
+    secondAni = new Ani(this, (secondTime - firstTime) / 100000, "size", dist(start.epiX, start.epiY, second.epiX, second.epiY), Ani.LINEAR, "onEnd:finishAni");
+    secondAni.start();
+  }
+  
+  private void finishAni() {
+    println(first.id + " made it to: " + second.id);
   }
 
   void display() {
-    fill(c, 130);
+    fill(c, 50);
     //stroke(255, 100);
     //strokeWeight(0.5);
+    ellipseMode(RADIUS);
     ellipse(x, y, size, size);
   }
 }
