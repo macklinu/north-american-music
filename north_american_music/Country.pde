@@ -68,7 +68,7 @@ class Country {
     display();
   }
 
-  void begin(int i, int first, int second, int firstTime, int secondTime) {
+  void begin(int i, int first, int second, float firstTime, float secondTime) {
     state[i].begin(state[first], state[second], firstTime, secondTime);
   }
 

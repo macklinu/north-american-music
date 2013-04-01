@@ -22,9 +22,9 @@ float sc = 2.025;
 boolean moving = false;
 boolean shift;
 
-int MI_to_IL = 1287378;
-int MI_to_NY = 2408736;
-int IL_to_NY = 3623298;
+float MI_to_IL = 1287378;
+float MI_to_NY = 2408736;
+float IL_to_NY = 3623298;
 
 int size = 2;
 PFont font;
@@ -78,9 +78,8 @@ void keyPressed() {
     println(nam.start);
   }
   if (key == 's') save("screenshots/" + timestamp() + ".png");
+  if (key == 'r') state[0].recording != state[0].recording;
 }
-
-
 
 void keyReleased() {
   shift = false;
