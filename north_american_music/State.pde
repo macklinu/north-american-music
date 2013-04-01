@@ -1,7 +1,7 @@
 class State {
   State first, second;
   // Epicenter epi;
-  PShape shape, star;
+  PShape shape, star, recordStar, blankStar;
   String id;
   int x, y;
   float epiX, epiY;
@@ -13,6 +13,8 @@ class State {
 
   Circle sound;
   float firstTime, secondTime;
+  
+  Timer timer;
 
   State(String id, int x, int y, float epiX, float epiY, float diameter, color c) {
     this.id = id;
@@ -23,7 +25,10 @@ class State {
     this.diameter = diameter;
     this.c = c;
     begin = false;
+    recording = false;
     setAni = false;
+    
+    timer = new Timer();
 
     // epi = new Epicenter(epiX, epiY, color(random(255), random(255), 30));
     sound = new Circle(epiX, epiY, diameter, c);
@@ -42,6 +47,39 @@ class State {
     star.vertex(-47, -15);
     star.vertex(-14, -20);
     star.endShape(CLOSE);
+    
+    recordStar = createShape();
+    recordStar.beginShape();
+    recordStar.noStroke();
+    recordStar.fill(0, 240, 255);
+    recordStar.vertex(0, -50);
+    recordStar.vertex(14, -20);
+    recordStar.vertex(47, -15);
+    recordStar.vertex(23, 7);
+    recordStar.vertex(29, 40);
+    recordStar.vertex(0, 25);
+    recordStar.vertex(-29, 40);
+    recordStar.vertex(-23, 7);
+    recordStar.vertex(-47, -15);
+    recordStar.vertex(-14, -20);
+    recordStar.endShape(CLOSE);
+    
+    blankStar = createShape();
+    blankStar.beginShape();
+    blankStar.noStroke();
+    blankStar.fill(0, 240, 255, 50);
+    blankStar.vertex(0, -50);
+    blankStar.vertex(14, -20);
+    blankStar.vertex(47, -15);
+    blankStar.vertex(23, 7);
+    blankStar.vertex(29, 40);
+    blankStar.vertex(0, 25);
+    blankStar.vertex(-29, 40);
+    blankStar.vertex(-23, 7);
+    blankStar.vertex(-47, -15);
+    blankStar.vertex(-14, -20);
+    blankStar.endShape(CLOSE);
+    
     starScale = 0.1;
   }
 
@@ -67,7 +105,13 @@ class State {
     pushMatrix();
     scale(starScale);
     translate(epiX/starScale, epiY/starScale);
-    shape(star);
+    if (recording) {
+      println(timer.interval);
+      if (timer.interval % 1 == 0) shape(recordStar);
+      else shape(blankStar);
+      // shape(recordStar);
+    }
+    else shape(star);
     popMatrix();
     if (begin) sound.display();
     // epi.display();

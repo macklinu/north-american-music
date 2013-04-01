@@ -16,13 +16,6 @@ class Circle {
     this.c = c;
   }
 
-  Circle(float x, float y, float radius, boolean begin) {
-    this.x = x;
-    this.y = y;
-    this.radius = radius;
-    this.begin = begin;
-  }
-
   void animate(State start, State first, State second) {
     this.start = start;
     this.first = first;

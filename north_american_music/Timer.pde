@@ -8,10 +8,11 @@ class Timer {
 
   int savedTime; // When Timer started
   int totalTime; // How long Timer should last
-  int interval = 0;
+  float interval = 0.;
 
   Timer() {
-    totalTime = 4000;
+    totalTime = 3000;
+    
   }
 
   // Starting the timer
@@ -20,16 +21,17 @@ class Timer {
     savedTime = millis();
   }
 
-  boolean atInterval() { 
+  float atInterval() { 
     // Check how much time has passed
     int passedTime = millis() - savedTime;
     int check = passedTime / totalTime;
     if (check > interval) {
-      interval++;
-      return true;
+      interval += 1.0;
+      return interval;
+      // return true;
     } 
     else {
-      return false;
+      return interval;
     }
   }
 }

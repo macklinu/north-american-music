@@ -67,6 +67,10 @@ class Country {
     update();
     display();
   }
+  
+  void recording(int i) {
+    state[i].recording = !state[i].recording;
+  }
 
   void begin(int i, int first, int second, float firstTime, float secondTime) {
     state[i].begin(state[first], state[second], firstTime, secondTime);

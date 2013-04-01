@@ -78,7 +78,7 @@ void keyPressed() {
     println(nam.start);
   }
   if (key == 's') save("screenshots/" + timestamp() + ".png");
-  if (key == 'r') state[0].recording != state[0].recording;
+  if (key == 'r') nam.recording(0);
 }
 
 void keyReleased() {
