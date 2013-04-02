@@ -5,3 +5,12 @@ GetChild
 NAM
 north_american_music/frames
 north_american_music/screenshots
+il_main/frames
+il_main/screenshots
+mi_main/frames
+mi_main/screenshots
+ny_main/frames
+ny_main/screenshots
+il_main/*.png
+mi_main/*.png
+ny_main/*.png
