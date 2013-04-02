@@ -10,6 +10,7 @@
  * This example loads a map of the United States and creates
  * two new PShape objects by extracting the data from two states.
  */
+import java.util.Iterator;
 
 import de.looksgood.ani.*;
 import de.looksgood.ani.easing.*;
@@ -35,7 +36,7 @@ void setup() {
   colorMode(HSB);
 
   Ani.init(this);
-  Ani.setDefaultEasing(Ani.LINEAR);
+  // Ani.setDefaultEasing(Ani.LINEAR);
 
   nam = new Country(x, y);
   font = loadFont("Inconsolata.vlw");
@@ -45,44 +46,48 @@ void setup() {
 void draw() {
   background(255);
   nam.run();
-  /*
+
   fill(50);
-   text(frameRate, 10, 20);
-   */
+  textSize(18);
+  text((int) frameRate, 10, 20);
 }
 
 void mousePressed() {
-  println(mouseX + ", " + mouseY);
+  // println(mouseX + ", " + mouseY);
 }
 
 void mouseDragged() {
-  moving = true;
+  // moving = true;
 }
 
 void mouseReleased() {
-  moving = false;
+  // moving = false;
 }
 
 void keyPressed() {
+  /*
   if (key == CODED) {
     if (keyCode == SHIFT) {
       shift = true;
     }
   }
+  */
   if (key == '1') nam.begin(0, 1, 2, MI_to_IL, IL_to_NY);
   if (key == '2') nam.begin(1, 0, 2, MI_to_IL, MI_to_NY);
   if (key == '3') nam.begin(2, 1, 0, MI_to_IL, IL_to_NY);
+  /*
   if (key == 'a') { 
     nam.start = !nam.start;
     nam.moving = !nam.moving;
     println(nam.start);
   }
+  */
   if (key == 's') save("screenshots/" + timestamp() + ".png");
-  if (key == 'r') nam.recording(0);
+  // if (key == 'r') nam.recording(0);
 }
 
 void keyReleased() {
-  shift = false;
+  // shift = false;
 }
 
 String timestamp() {
@@ -91,8 +96,8 @@ String timestamp() {
       + nf(day(), 2)
         + "_"
           + nf(hour(), 2)
-            + nf(minute(), 2)
-              + nf(second(), 2);
+          + nf(minute(), 2)
+            + nf(second(), 2);
   return currentTime;
 }
 

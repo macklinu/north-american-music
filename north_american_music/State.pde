@@ -1,7 +1,7 @@
 class State {
   State first, second;
   // Epicenter epi;
-  PShape shape, star, recordStar, blankStar;
+  PShape shape, star;
   String id;
   int x, y;
   float epiX, epiY;
@@ -11,9 +11,10 @@ class State {
 
   boolean recording, listening, sending, begin, setAni;
 
+  ArrayList<Circle> circles;
   Circle sound;
   float firstTime, secondTime;
-  
+
   Timer timer;
 
   State(String id, int x, int y, float epiX, float epiY, float diameter, color c) {
@@ -27,11 +28,14 @@ class State {
     begin = false;
     recording = false;
     setAni = false;
-    
+
     timer = new Timer();
 
     // epi = new Epicenter(epiX, epiY, color(random(255), random(255), 30));
-    sound = new Circle(epiX, epiY, diameter, c);
+    // sound = new Circle(epiX, epiY, diameter, c);
+
+    circles = new ArrayList<Circle>();
+
     star = createShape();
     star.beginShape();
     star.noStroke();
@@ -47,39 +51,7 @@ class State {
     star.vertex(-47, -15);
     star.vertex(-14, -20);
     star.endShape(CLOSE);
-    
-    recordStar = createShape();
-    recordStar.beginShape();
-    recordStar.noStroke();
-    recordStar.fill(0, 240, 255);
-    recordStar.vertex(0, -50);
-    recordStar.vertex(14, -20);
-    recordStar.vertex(47, -15);
-    recordStar.vertex(23, 7);
-    recordStar.vertex(29, 40);
-    recordStar.vertex(0, 25);
-    recordStar.vertex(-29, 40);
-    recordStar.vertex(-23, 7);
-    recordStar.vertex(-47, -15);
-    recordStar.vertex(-14, -20);
-    recordStar.endShape(CLOSE);
-    
-    blankStar = createShape();
-    blankStar.beginShape();
-    blankStar.noStroke();
-    blankStar.fill(0, 240, 255, 50);
-    blankStar.vertex(0, -50);
-    blankStar.vertex(14, -20);
-    blankStar.vertex(47, -15);
-    blankStar.vertex(23, 7);
-    blankStar.vertex(29, 40);
-    blankStar.vertex(0, 25);
-    blankStar.vertex(-29, 40);
-    blankStar.vertex(-23, 7);
-    blankStar.vertex(-47, -15);
-    blankStar.vertex(-14, -20);
-    blankStar.endShape(CLOSE);
-    
+
     starScale = 0.1;
   }
 
@@ -91,8 +63,16 @@ class State {
     if (begin) {
       if (setAni) { 
         // sound.animate(epiX, epiY, first.epiX, first.epiY, second.epiX, second.epiY, firstTime);
-        sound.animate(this, first, second);
-        setAni = false;
+        // sound.animate(this, first, second);
+        // Iterator<Circle> it = circles.iterator();
+        // while (it.hasNext ()) {
+          //Circle c = it.next();
+          // c.animate(this, first, second);
+          //if (c.isDead()) {
+          // c.remove();
+          //}
+        //}
+        // setAni = false;
       }
     }
   }
@@ -105,16 +85,15 @@ class State {
     pushMatrix();
     scale(starScale);
     translate(epiX/starScale, epiY/starScale);
-    if (recording) {
-      println(timer.interval);
-      if (timer.interval % 1 == 0) shape(recordStar);
-      else shape(blankStar);
-      // shape(recordStar);
-    }
-    else shape(star);
+    shape(star);
     popMatrix();
-    if (begin) sound.display();
-    // epi.display();
+    if (begin) { // sound.display();
+      Iterator<Circle> it = circles.iterator();
+      while (it.hasNext ()) {
+        Circle c = it.next();
+        c.display();
+      }
+    }
   }
 
   void begin(State first, State second, float firstTime, float secondTime) {
@@ -123,8 +102,10 @@ class State {
     this.second = second;
     this.firstTime = firstTime;
     this.secondTime = secondTime;
-    begin = !begin;
+    begin = true;
     setAni = true;
+    
+    circles.add(new Circle(epiX, epiY, diameter, c, this, first, second));
   }
 }
 
