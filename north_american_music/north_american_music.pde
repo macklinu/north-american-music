@@ -35,9 +35,9 @@ void setup() {
   smooth();
   colorMode(HSB);
 
+  // initialize the animation library
   Ani.init(this);
-  // Ani.setDefaultEasing(Ani.LINEAR);
-
+  // create the United States of America
   nam = new Country(x, y);
   font = loadFont("Inconsolata.vlw");
   textFont(font);
@@ -45,45 +45,22 @@ void setup() {
 
 void draw() {
   background(255);
+  // run the whole thing
   nam.run();
 
+  // display the frame rate in the upper left (for debugging)
   fill(50);
   textSize(18);
   text((int) frameRate, 10, 20);
 }
 
-void mousePressed() {
-  // println(mouseX + ", " + mouseY);
-}
-
-void mouseDragged() {
-  // moving = true;
-}
-
-void mouseReleased() {
-  // moving = false;
-}
-
 void keyPressed() {
-  /*
-  if (key == CODED) {
-    if (keyCode == SHIFT) {
-      shift = true;
-    }
-  }
-  */
+
   if (key == '1') nam.begin(0, 1, 2, MI_to_IL, IL_to_NY);
   if (key == '2') nam.begin(1, 0, 2, MI_to_IL, MI_to_NY);
   if (key == '3') nam.begin(2, 1, 0, MI_to_IL, IL_to_NY);
-  /*
-  if (key == 'a') { 
-    nam.start = !nam.start;
-    nam.moving = !nam.moving;
-    println(nam.start);
-  }
-  */
-  if (key == 's') save("screenshots/" + timestamp() + ".png");
-  // if (key == 'r') nam.recording(0);
+
+  if (key == 's') save("screenshots/" + timestamp() + ".png"
 }
 
 void keyReleased() {
@@ -93,11 +70,11 @@ void keyReleased() {
 String timestamp() {
   String currentTime = str(year()) 
     + nf(month(), 2)
-      + nf(day(), 2)
-        + "_"
-          + nf(hour(), 2)
-          + nf(minute(), 2)
-            + nf(second(), 2);
+    + nf(day(), 2)
+    + "_"
+    + nf(hour(), 2)
+    + nf(minute(), 2)
+    + nf(second(), 2);
   return currentTime;
 }
 
