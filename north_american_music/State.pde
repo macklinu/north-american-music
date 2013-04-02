@@ -1,27 +1,23 @@
 class State {
   State first, second;
-  // Epicenter epi;
+  ArrayList<Circle> circles;
   PShape shape, star;
   String id;
   int x, y;
   float epiX, epiY;
   color c;
-  float diameter;
-  float starScale;
-
-  ArrayList<Circle> circles;
-  Circle sound;
+  float circleSize;
+  float starScale;  
   float firstTime, secondTime;
 
-  State(String id, int x, int y, float epiX, float epiY, float diameter, color c) {
+  State(String id, int x, int y, float epiX, float epiY, float circleSize, color c) {
     this.id = id;
     this.x = x;
     this.y = y;
     this.epiX = epiX;
     this.epiY = epiY;
-    this.diameter = diameter;
+    this.circleSize = circleSize;
     this.c = c;
-
 
     circles = new ArrayList<Circle>();
 
@@ -45,21 +41,16 @@ class State {
     starScale = 0.1;
   }
 
-  void disable() {
-  }
-
-  void update() {
-  }
-
   void display() {
-    // if (begin) {
-      Iterator<Circle> it = circles.iterator();
-      while (it.hasNext()) {
-        Circle c = it.next();
-        c.display();
-        if (c.isCompleted()) it.remove();
-      }
-    // }
+    // if there are any created circles
+    // check them all and display them accordingly
+    Iterator<Circle> it = circles.iterator();
+    while (it.hasNext ()) {
+      Circle c = it.next();
+      c.display();
+      if (c.isCompleted()) it.remove();
+    }
+    // draw the university's location with a star
     pushMatrix();
     scale(starScale);
     translate(epiX/starScale, epiY/starScale);
@@ -67,13 +58,13 @@ class State {
     popMatrix();
   }
 
-  void begin(State first, State second, float firstTime, float secondTime) {
+  void addCircle(State first, State second, float firstTime, float secondTime) {
     this.first = first;
     this.second = second;
     this.firstTime = firstTime;
     this.secondTime = secondTime;
 
-    circles.add(new Circle(epiX, epiY, diameter, c, this, first, second));
+    circles.add(new Circle(epiX, epiY, circleSize, c, this, first, second));
   }
 }
 

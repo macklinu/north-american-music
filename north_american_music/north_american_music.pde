@@ -10,52 +10,51 @@
  * This example loads a map of the United States and creates
  * two new PShape objects by extracting the data from two states.
  */
-import java.util.Iterator;
 
-import de.looksgood.ani.*;
+import java.util.Iterator; // for the circles ArrayList
+import de.looksgood.ani.*; // animation library
 import de.looksgood.ani.easing.*;
+import oscP5.*; // OSC library to communicate between visual sketches
+import netP5.*;
 
 Country nam;
 
-int x = -587;
-int y = -121;
-float sc = 2.025;
+int x = -587; // adjust x position of svg
+int y = -121; // adjust x position of svg
+float sc = 2.025; // global scale of map
 
 // times it takes to travel from one state to another (in ms)
 float MI_to_IL = 1287378.0 / 285.0;
 float MI_to_NY = 2408736.0 / 285.0;
 float IL_to_NY = 3623298.0 / 285.0;
 
-// int size = 2;
 PFont font;
 
 void setup() {
-  // P3D is crucial 
-  // Otherwise, the framerate drops significantly over time
+  // P3D is crucial; otherwise, the framerate drops significantly over time
   size(640, 480, P3D);
   smooth();
   colorMode(HSB, 360);
 
-  // initialize the animation library
-  Ani.init(this);
-  // create the United States of America
-  nam = new Country(x, y);
+  Ani.init(this); // initialize the animation library
+  nam = new Country(x, y); // create the United States of America
+  // load a font
   font = loadFont("Inconsolata.vlw");
   textFont(font);
 }
 
 void draw() {
-  fill(340, 30);
-  noStroke();
-  rect(0, 0, width, height);
-  // run the whole thing
-  nam.run();
+  background(200);
+  nam.display(); // do everything
 
   // display the frame rate in the upper left (for debugging)
+  /*
   fill(50);
-  textSize(18);
-  text((int) frameRate, 10, 20);
-  
+   textSize(18);
+   text((int) frameRate, 10, 20);
+   */
+
+  // for recording animation (keep this commented out)
   // saveFrame("frames/screen-######.tif");
 }
 
@@ -67,7 +66,6 @@ void keyPressed() {
   if (key == '3') nam.create(2, 1, 0, MI_to_IL, IL_to_NY);
   // press 's' to save a screenshot of the current frame
   if (key == 's' || key == 'S') save("screenshots/" + timestamp() + ".png");
-  // if (key == 'c' || key == 'C') background(340);
 }
 
 // custom timestamp string makes saving files chronologically organized 

@@ -24,7 +24,7 @@ class Circle {
     this.firstTime = start.firstTime;
     this.secondTime = start.secondTime;
     strokeAlpha = 200;
-    fillAlpha = 3;
+    fillAlpha = 20;
     firstDest = dist(start.epiX, start.epiY, first.epiX, first.epiY);
     secondDest = dist(start.epiX, start.epiY, second.epiX, second.epiY);
     complete = false;
@@ -59,30 +59,32 @@ class Circle {
     complete = true;
   }
 
+  // to check whether or not to remove the circle from screen once it's reached its destination
   boolean isCompleted() {
     return complete;
   }
-  
+
   // convert ms to sec for the Ani library
   private float toSeconds(float ms) {
     return ms / 1000.0;
   }
 
   void display() {
-    // 
     ellipseMode(RADIUS);
     strokeWeight(1.25);
     stroke(c, strokeAlpha);
     fill(c, fillAlpha);
     ellipse(x, y, radius, radius);
     // draw some text
-    /*
-      fill(0);
-     textSize(7);
-     text(nf((firstAni.getPosition() / dist(start.epiX, start.epiY, first.epiX, first.epiY)) * 100.0, 0, 2) + "% to " + first.id, x, y);
-     if (secondAni != null) text(nf((secondAni.getPosition() / dist(start.epiX, start.epiY, second.epiX, second.epiY)) * 100.0, 0, 2) + "% to " + second.id, x, y + 12);
-     else text(nf((firstAni.getPosition() / dist(start.epiX, start.epiY, second.epiX, second.epiY)) * 100.0, 0, 2) + "% to " + second.id, x, y + 12);
-     */
+    // drawText();
+  }
+
+  private void drawText() {
+    fill(0);
+    textSize(7);
+    text(nf((firstAni.getPosition() / dist(start.epiX, start.epiY, first.epiX, first.epiY)) * 100.0, 0, 2) + "% to " + first.id, x, y);
+    if (secondAni != null) text(nf((secondAni.getPosition() / dist(start.epiX, start.epiY, second.epiX, second.epiY)) * 100.0, 0, 2) + "% to " + second.id, x, y + 12);
+    else text(nf((firstAni.getPosition() / dist(start.epiX, start.epiY, second.epiX, second.epiY)) * 100.0, 0, 2) + "% to " + second.id, x, y + 12);
   }
 }
 
