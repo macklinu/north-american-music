@@ -49,7 +49,7 @@ class Circle {
     //stroke(255, 100);
     //strokeWeight(0.5);
     ellipseMode(RADIUS);
-    // noFill();
+    noFill();
     stroke(c, 50);
     strokeWeight(1);
     ellipse(x, y, radius, radius);

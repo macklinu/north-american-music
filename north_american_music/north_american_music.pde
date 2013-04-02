@@ -23,15 +23,15 @@ float sc = 2.025;
 boolean moving = false;
 boolean shift;
 
-float MI_to_IL = 1287378;
-float MI_to_NY = 2408736;
-float IL_to_NY = 3623298;
+float MI_to_IL = 1287378.0 / 50.0;
+float MI_to_NY = 2408736.0 / 50.0;
+float IL_to_NY = 3623298.0 / 50.0;
 
 int size = 2;
 PFont font;
 
 void setup() {
-  size(640, 480, P2D);
+  size(640, 480, P3D);
   smooth();
   colorMode(HSB);
 
