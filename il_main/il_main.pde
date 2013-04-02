@@ -3,6 +3,8 @@
  *
  * 2 Apr 2013
  * Digital Music Ensemble: University of Michigan, Ann Arbor
+ * audio programming: Colin Fulton
+ * visual programming: Macklin Underdown 
  * 
  * Visualization for ILLINOIS
  *
@@ -23,15 +25,16 @@ int y = -121; // adjust x position of svg
 float sc = 2.025; // global scale of map
 
 // times it takes to travel from one state to another (in ms)
-float MI_to_IL = 1287378.0 / 285.0;
-float MI_to_NY = 2408736.0 / 285.0;
-float IL_to_NY = 3623298.0 / 285.0;
+float speed = 20.0; // 1 = realtime
+float MI_to_IL = 1287378.0 / speed;
+float MI_to_NY = 2408736.0 / speed;
+float IL_to_NY = 3623298.0 / speed;
 
 PFont font;
 
 void setup() {
   // P3D is crucial; otherwise, the framerate drops significantly over time
-  size(640, 480, P3D);
+  size(1280, 720, P3D);
   smooth();
   colorMode(HSB, 360);
 
@@ -49,49 +52,40 @@ void setup() {
   textFont(font);
 }
 
+void draw() {
+  background(200);
+  nam.display(); // do everything
+}
+
+void keyPressed() {
+  // press SPACEBAR to create a new visual representation of the ensemble when they begin making sound
+  if (key == ' ') {
+    OscMessage m = new OscMessage("/ilStart"); // create a message that says "IL has started playing"
+    m.add(1); // add an int to the osc message
+    // send the message
+    fromMI.send(m, toMI); // to MI
+    fromNY.send(m, toNY); // to NY
+    nam.create(0, 1, 2, MI_to_IL, IL_to_NY); // display the visual locally
+  }
+}
+
+/////////////////
+// osc methods //
+/////////////////
+
 public void miStart(int i) {
-  println("### plug event method. received a message /ilStart.");
+  println("MI has started playing, but you can't hear it yet.");
   nam.create(1, 0, 2, MI_to_IL, MI_to_NY);
 }
 
 public void nyStart(int i) {
-  println("### plug event method. received a message /nyStart.");
+  println("NY has started playing, but you can't hear it yet.");
   nam.create(2, 1, 0, MI_to_IL, IL_to_NY);
 }
 
-void draw() {
-  background(200);
-  nam.display(); // do everything
-
-  // display the frame rate in the upper left (for debugging)
-  /*
-  fill(50);
-   textSize(18);
-   text((int) frameRate, 10, 20);
-   */
-
-  // for recording animation (keep this commented out)
-  // saveFrame("frames/screen-######.tif");
-}
-
-void keyPressed() {
-  // create a new visual representation of the ensemble when they begin making sound
-  // going to use SPACEBAR by default
-  if (key == '1') nam.create(0, 1, 2, MI_to_IL, IL_to_NY);
-  if (key == '2') nam.create(1, 0, 2, MI_to_IL, MI_to_NY);
-  if (key == '3') nam.create(2, 1, 0, MI_to_IL, IL_to_NY);
-  // press 's' to save a screenshot of the current frame
-  if (key == 's' || key == 'S') save("screenshots/" + timestamp() + ".png");
-  if (key == ' ') {
-    /* createan osc message with address pattern /test */
-    OscMessage m = new OscMessage("/ilStart");
-    m.add(1); // add an int to the osc message
-    // send the message
-    fromMI.send(m, toMI);
-    fromNY.send(m, toNY);
-    nam.create(0, 1, 2, MI_to_IL, IL_to_NY);
-  }
-}
+//////////
+// misc //
+//////////
 
 // custom timestamp string makes saving files chronologically organized 
 String timestamp() {

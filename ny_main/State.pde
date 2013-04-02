@@ -25,7 +25,7 @@ class State {
     star = createShape();
     star.beginShape();
     star.noStroke();
-    star.fill(c, 250);
+    star.fill(c);
     star.vertex(0, -50);
     star.vertex(14, -20);
     star.vertex(47, -15);

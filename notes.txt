@@ -1,0 +1,24 @@
+////////////////////////////////
+// Visualization instructions //
+////////////////////////////////
+
+Included in this folder are three things:
+- notes.txt - instructions
+- [state]_main/ - the main processing sketch folder (e.g., mi_main)
+- libraries/ - the necessary libraries to run the Processing sketch
+  - /Ani/ - the animation library
+  - /oscp5/ - the OSC library
+
+Download Processing 2.0b8 - http://processing.googlecode.com/files/processing-2.0b8-macosx.zip
+
+Locate the Processing sketchbook folder, which is located by default at /Users/[username]/Documents/Processing. If there is not a folder called "libraries" (without quotes), create that here.
+
+Find the libraries folder I've included with this package, and drag the contents of this folder in the Processing sketchbook "libraries" folder from above. You'll be moving the Ani/ and oscp5/ folders into Processing's "libraries" folder.
+
+Open Processing. Go to this folder and load the [state]_main/[state]_main.pde. Click Run (command + r), and you should see a grayscale map of the Eastern US.
+
+Press spacebar when your ensemble begins playing a musical section. That's all you have to do.
+
+Thanks!
+
+
