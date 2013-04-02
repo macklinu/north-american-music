@@ -11,7 +11,7 @@ class State {
 
   boolean begin, setAni;
 
-  ArrayList<Circle> circles;
+  // ArrayList<Circle> circles;
   Circle sound;
   float firstTime, secondTime;
 
@@ -30,9 +30,8 @@ class State {
     // timer = new Timer();
 
     // epi = new Epicenter(epiX, epiY, color(random(255), random(255), 30));
-    // sound = new Circle(epiX, epiY, diameter, c);
 
-    circles = new ArrayList<Circle>();
+    // circles = new ArrayList<Circle>();
 
     star = createShape();
     star.beginShape();
@@ -57,11 +56,6 @@ class State {
   }
 
   void update() {
-    Iterator<Circle> it = circles.iterator();
-      while (it.hasNext()) {
-        Circle c = it.next();
-        c.update();
-      }
   }
 
   void display() {
@@ -74,12 +68,9 @@ class State {
     translate(epiX/starScale, epiY/starScale);
     shape(star);
     popMatrix();
-    if (begin) { // sound.display();
-      Iterator<Circle> it = circles.iterator();
-      while (it.hasNext()) {
-        Circle c = it.next();
-        c.display();
-      }
+    if (begin) { 
+      sound.update();
+      sound.display();
     }
   }
 
@@ -91,8 +82,9 @@ class State {
     this.secondTime = secondTime;
     begin = true;
     setAni = true;
-    
-    circles.add(new Circle(epiX, epiY, diameter, c, this, first, second));
+
+    sound = new Circle(epiX, epiY, diameter, c, this, first, second);
+    // circles.add(new Circle(epiX, epiY, diameter, c, this, first, second));
   }
 }
 

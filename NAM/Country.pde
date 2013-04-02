@@ -63,7 +63,7 @@ class Country {
     popMatrix();
   }
 
-  void run() {
+  void go() {
     update();
     display();
   }

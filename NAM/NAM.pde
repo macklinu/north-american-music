@@ -13,7 +13,7 @@ import de.looksgood.ani.easing.*;
  * This example loads a map of the United States and creates
  * two new PShape objects by extracting the data from two states.
  */
-import java.util.Iterator;
+// import java.util.Iterator;
 
 
 Country nam;
@@ -28,11 +28,11 @@ float MI_to_IL = 1287378;
 float MI_to_NY = 2408736;
 float IL_to_NY = 3623298;
 
-int size = 2;
+// int size = 2;
 PFont font;
 
 void setup() {
-  size(640, 480, P2D);
+  size(640, 480, P3D);
   smooth();
   colorMode(HSB);
 
@@ -40,15 +40,16 @@ void setup() {
   // Ani.setDefaultEasing(Ani.LINEAR);
 
   nam = new Country(x, y);
-  font = loadFont("Inconsolata.vlw");
-  textFont(font);
+  // font = loadFont("Inconsolata.vlw");
+  // textFont(font);
   
   for (int i = 32; i > 0; i--) println(i + "\t" + (MI_to_IL / float(i)));
+  frameRate(1024);
 }
 
 void draw() {
   background(255);
-  nam.run();
+  nam.go();
 
   fill(50);
   textSize(18);
