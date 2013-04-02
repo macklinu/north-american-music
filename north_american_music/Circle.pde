@@ -10,7 +10,7 @@ class Circle {
   float ghost;
   float strokeAlpha, fillAlpha;
   float firstDest, secondDest;
-  boolean show;
+  boolean complete;
 
   Circle(float x, float y, float radius, color c, State start, State first, State second) {
     // initialize variables for each circle
@@ -27,7 +27,7 @@ class Circle {
     fillAlpha = 3;
     firstDest = dist(start.epiX, start.epiY, first.epiX, first.epiY);
     secondDest = dist(start.epiX, start.epiY, second.epiX, second.epiY);
-    show = true;
+    complete = false;
 
     // begin the animation upon creation
     animate();
@@ -56,13 +56,14 @@ class Circle {
   private void finishAni() {
     // once the circle disappears, stop drawing the circle
     println(start.id + " made it to: " + second.id);
-    show = false;
-  }
-  
-  boolean isCompleted() {
-   return show; 
+    complete = true;
   }
 
+  boolean isCompleted() {
+    return complete;
+  }
+  
+  // convert ms to sec for the Ani library
   private float toSeconds(float ms) {
     return ms / 1000.0;
   }

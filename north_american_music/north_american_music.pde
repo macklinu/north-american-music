@@ -55,6 +55,8 @@ void draw() {
   fill(50);
   textSize(18);
   text((int) frameRate, 10, 20);
+  
+  // saveFrame("frames/screen-######.tif");
 }
 
 void keyPressed() {

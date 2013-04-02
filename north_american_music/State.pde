@@ -9,13 +9,9 @@ class State {
   float diameter;
   float starScale;
 
-  boolean recording, listening, sending, begin, setAni;
-
   ArrayList<Circle> circles;
   Circle sound;
   float firstTime, secondTime;
-
-  Timer timer;
 
   State(String id, int x, int y, float epiX, float epiY, float diameter, color c) {
     this.id = id;
@@ -25,14 +21,7 @@ class State {
     this.epiY = epiY;
     this.diameter = diameter;
     this.c = c;
-    begin = false;
-    recording = false;
-    setAni = false;
 
-    timer = new Timer();
-
-    // epi = new Epicenter(epiX, epiY, color(random(255), random(255), 30));
-    // sound = new Circle(epiX, epiY, diameter, c);
 
     circles = new ArrayList<Circle>();
 
@@ -66,10 +55,9 @@ class State {
     // if (begin) {
       Iterator<Circle> it = circles.iterator();
       while (it.hasNext()) {
-        // transmitting = true;
         Circle c = it.next();
         c.display();
-        if (!c.isCompleted()) it.remove();
+        if (c.isCompleted()) it.remove();
       }
     // }
     pushMatrix();
@@ -84,8 +72,6 @@ class State {
     this.second = second;
     this.firstTime = firstTime;
     this.secondTime = secondTime;
-    begin = true;
-    setAni = true;
 
     circles.add(new Circle(epiX, epiY, diameter, c, this, first, second));
   }
