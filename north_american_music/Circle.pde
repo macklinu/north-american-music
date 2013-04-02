@@ -8,8 +8,12 @@ class Circle {
   Ani firstAni, secondAni, ghostAni;
   float firstTime, secondTime;
   float ghost;
+  float strokeAlpha, fillAlpha;
+  float firstDest, secondDest;
+  boolean show;
 
   Circle(float x, float y, float radius, color c, State start, State first, State second) {
+    // initialize variables for each circle
     this.x = x;
     this.y = y;
     this.radius = radius;
@@ -19,26 +23,44 @@ class Circle {
     this.second = second;
     this.firstTime = start.firstTime;
     this.secondTime = start.secondTime;
-    
+    strokeAlpha = 200;
+    fillAlpha = 3;
+    firstDest = dist(start.epiX, start.epiY, first.epiX, first.epiY);
+    secondDest = dist(start.epiX, start.epiY, second.epiX, second.epiY);
+    show = true;
+
+    // begin the animation upon creation
     animate();
   }
 
   void animate() {
-    firstAni = new Ani(this, toSeconds(firstTime), "radius", dist(start.epiX, start.epiY, first.epiX, first.epiY), Ani.LINEAR, "onEnd:nextAni");
-    // firstAni.start();
+    // the first animation increases the radius of the circle from the starting point to the  1st city reached
+    firstAni = new Ani(this, toSeconds(firstTime), "radius", firstDest, Ani.LINEAR, "onEnd:nextAni");
   }
 
   private void nextAni() {
+    // the second animation increases the radius of the circle from the 1st city reached to its final destination
     println(start.id + " made it to: " + first.id);
     // update the circle's radius to reflect making it to the first city
     radius = dist(start.epiX, start.epiY, first.epiX, first.epiY);
     // animate the circle radius to the next city
-    secondAni = new Ani(this, toSeconds(secondTime - firstTime), "radius", dist(start.epiX, start.epiY, second.epiX, second.epiY), Ani.LINEAR, "onEnd:finishAni");
-    secondAni.start();
+    secondAni = new Ani(this, toSeconds(secondTime - firstTime), "radius", secondDest, Ani.LINEAR, "onEnd:alphaAni");
+  }
+
+  private void alphaAni() {
+    // once a sound has reached the furthest destination,
+    // fade out the stroke and fill colors until it disappears
+    Ani.to(this, 5, "strokeAlpha:0,fillAlpha:0", Ani.LINEAR, "onEnd:finishAni");
   }
 
   private void finishAni() {
-    println(first.id + " made it to: " + second.id);
+    // once the circle disappears, stop drawing the circle
+    println(start.id + " made it to: " + second.id);
+    show = false;
+  }
+  
+  boolean isCompleted() {
+   return show; 
   }
 
   private float toSeconds(float ms) {
@@ -46,19 +68,19 @@ class Circle {
   }
 
   void display() {
-    //stroke(255, 100);
-    //strokeWeight(0.5);
+    // 
     ellipseMode(RADIUS);
-    noFill();
-    stroke(c, 50);
-    strokeWeight(1);
+    strokeWeight(1.25);
+    stroke(c, strokeAlpha);
+    fill(c, fillAlpha);
     ellipse(x, y, radius, radius);
+    // draw some text
     /*
-    fill(0);
+      fill(0);
      textSize(7);
-     text(nf((firstAni.getPosition() / dist(start.epiX, start.epiY, first.epiX, first.epiY)) * 100.0, 0, 3) + "% to " + first.id, x, y);
-     if (secondAni != null) text(nf((secondAni.getPosition() / dist(start.epiX, start.epiY, second.epiX, second.epiY)) * 100.0, 0, 3) + "% to " + second.id, x, y + 12);
-     else text(nf((firstAni.getPosition() / dist(start.epiX, start.epiY, second.epiX, second.epiY)) * 100.0, 0, 3) + "% to " + second.id, x, y + 12);
+     text(nf((firstAni.getPosition() / dist(start.epiX, start.epiY, first.epiX, first.epiY)) * 100.0, 0, 2) + "% to " + first.id, x, y);
+     if (secondAni != null) text(nf((secondAni.getPosition() / dist(start.epiX, start.epiY, second.epiX, second.epiY)) * 100.0, 0, 2) + "% to " + second.id, x, y + 12);
+     else text(nf((firstAni.getPosition() / dist(start.epiX, start.epiY, second.epiX, second.epiY)) * 100.0, 0, 2) + "% to " + second.id, x, y + 12);
      */
   }
 }

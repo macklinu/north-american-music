@@ -36,10 +36,11 @@ class State {
 
     circles = new ArrayList<Circle>();
 
+    // create a star shape
     star = createShape();
     star.beginShape();
     star.noStroke();
-    star.fill(40, 240, 255);
+    star.fill(c, 250);
     star.vertex(0, -50);
     star.vertex(14, -20);
     star.vertex(47, -15);
@@ -62,33 +63,30 @@ class State {
   }
 
   void display() {
-    shape.disableStyle();
-    noStroke();
-    fill(200);
-    // shape(shape, x, y); 
+    // if (begin) {
+      Iterator<Circle> it = circles.iterator();
+      while (it.hasNext()) {
+        // transmitting = true;
+        Circle c = it.next();
+        c.display();
+        if (!c.isCompleted()) it.remove();
+      }
+    // }
     pushMatrix();
     scale(starScale);
     translate(epiX/starScale, epiY/starScale);
     shape(star);
     popMatrix();
-    if (begin) { // sound.display();
-      Iterator<Circle> it = circles.iterator();
-      while (it.hasNext()) {
-        Circle c = it.next();
-        c.display();
-      }
-    }
   }
 
   void begin(State first, State second, float firstTime, float secondTime) {
-    // epi.begin();
     this.first = first;
     this.second = second;
     this.firstTime = firstTime;
     this.secondTime = secondTime;
     begin = true;
     setAni = true;
-    
+
     circles.add(new Circle(epiX, epiY, diameter, c, this, first, second));
   }
 }
