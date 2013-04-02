@@ -1,3 +1,6 @@
+import de.looksgood.ani.*;
+import de.looksgood.ani.easing.*;
+
 /**
  * North American Music
  * 2 Apr 2013
@@ -12,8 +15,6 @@
  */
 import java.util.Iterator;
 
-import de.looksgood.ani.*;
-import de.looksgood.ani.easing.*;
 
 Country nam;
 
@@ -41,6 +42,8 @@ void setup() {
   nam = new Country(x, y);
   font = loadFont("Inconsolata.vlw");
   textFont(font);
+  
+  for (int i = 32; i > 0; i--) println(i + "\t" + (MI_to_IL / float(i)));
 }
 
 void draw() {

@@ -69,7 +69,7 @@ class Country {
   }
   
   void recording(int i) {
-    state[i].recording = !state[i].recording;
+    // state[i].recording = !state[i].recording;
   }
 
   void begin(int i, int first, int second, float firstTime, float secondTime) {

@@ -9,13 +9,11 @@ class State {
   float diameter;
   float starScale;
 
-  boolean recording, listening, sending, begin, setAni;
+  boolean begin, setAni;
 
   ArrayList<Circle> circles;
   Circle sound;
   float firstTime, secondTime;
-
-  Timer timer;
 
   State(String id, int x, int y, float epiX, float epiY, float diameter, color c) {
     this.id = id;
@@ -26,10 +24,10 @@ class State {
     this.diameter = diameter;
     this.c = c;
     begin = false;
-    recording = false;
+    // recording = false;
     setAni = false;
 
-    timer = new Timer();
+    // timer = new Timer();
 
     // epi = new Epicenter(epiX, epiY, color(random(255), random(255), 30));
     // sound = new Circle(epiX, epiY, diameter, c);
@@ -59,6 +57,11 @@ class State {
   }
 
   void update() {
+    Iterator<Circle> it = circles.iterator();
+      while (it.hasNext()) {
+        Circle c = it.next();
+        c.update();
+      }
   }
 
   void display() {

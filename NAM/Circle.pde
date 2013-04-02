@@ -7,7 +7,7 @@ class Circle {
   State start, first, second;
   Ani firstAni, secondAni, ghostAni;
   float firstTime, secondTime;
-  float ghost;
+  float rate;
 
   Circle(float x, float y, float radius, color c, State start, State first, State second) {
     this.x = x;
@@ -20,11 +20,13 @@ class Circle {
     this.firstTime = start.firstTime;
     this.secondTime = start.secondTime;
     
-    animate();
+    // animate();
+    rate = dist(start.epiX, start.epiY, first.epiX, first.epiY) / firstTime * 1000;
+    println(rate);
   }
 
   void animate() {
-    firstAni = new Ani(this, toSeconds(firstTime), "radius", dist(start.epiX, start.epiY, first.epiX, first.epiY), Ani.LINEAR, "onEnd:nextAni");
+    // firstAni = new Ani(this, toSeconds(firstTime), "radius", dist(start.epiX, start.epiY, first.epiX, first.epiY), Ani.LINEAR, "onEnd:nextAni");
     // firstAni.start();
   }
 
@@ -44,12 +46,16 @@ class Circle {
   private float toSeconds(float ms) {
     return ms / 1000.0;
   }
+  
+  void update() {
+    radius += rate;
+  }
 
   void display() {
     //stroke(255, 100);
     //strokeWeight(0.5);
     ellipseMode(RADIUS);
-    // noFill();
+    noFill();
     stroke(c, 50);
     strokeWeight(1);
     ellipse(x, y, radius, radius);
