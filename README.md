@@ -16,9 +16,4 @@ When data (in this case, music) is transmitted over the internet, it travels nea
 
 A custom coding solution was needed to make this piece work properly. A simple delay object in Max/MSP works for short delays. When the delays are up to 60 minutes in length, that's when problems arise.
 
-// Write more later.
-
-This repo is a work in progress. It will ultimately contain two parts:
-
-- Audio: developed by Colin.
-- Visualization: developed by me.
+This repo contains the visual Processing code, a visual that would be seen by all 3 universities at the same time.
