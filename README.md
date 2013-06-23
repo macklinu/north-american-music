@@ -1,6 +1,6 @@
 # North American Music
 
-> A telematic piece involving the University of Michigan, University of Illinois and University of Virginia. To be performed on 2 April 2013.
+> A telematic piece involving the University of Michigan, University of Illinois and University of Virginia. Performed on 2 April 2013 with special guest Elliot Sharp.
 
 ## About
 
